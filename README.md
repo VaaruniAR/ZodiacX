@@ -1,115 +1,148 @@
-# ZodiacX - Authentication System
+# ZodiacX - Explore Your Cosmic Connection
 
-This project implements a complete login/signup system with OTP verification for the ZodiacX application. The system includes frontend components built with React and a Flask backend for authentication.
+ZodiacX is an interactive web application that helps users discover their zodiac sign, explore astrological compatibility, and engage with cosmic content. This React-based application features a beautiful cosmic-themed UI with authentication functionality.
 
-## Project Structure
+![ZodiacX Screenshot](Screenshot 2025-04-30 at 8.42.53 AM.png)
 
-```
-zodiacx/
-├── backend/
-│   ├── app.py
-│   └── requirements.txt
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Header.jsx
-│   │   │   └── Footer.jsx
-│   │   ├── pages/
-│   │   │   ├── Home.jsx
-│   │   │   ├── ZodiacQuiz.jsx
-│   │   │   ├── Compatibility.jsx
-│   │   │   ├── Login.jsx
-│   │   │   └── Signup.jsx
-│   │   ├── styles/
-│   │   │   ├── global.css
-│   │   │   ├── Header.css
-│   │   │   └── Auth.css
-│   │   ├── App.jsx
-│   │   ├── Router.jsx
-│   │   └── main.jsx
-```
+## 🌟 Features
 
-## Frontend Setup
+- **User Authentication**: Signup and login with profile management
+- **Know Your Zodiac**: Interactive quiz to discover your zodiac sign
+- **Compatibility Check**: Explore astrological compatibility between signs
+- **Responsive Design**: Beautiful cosmic-themed UI that works on all devices
+- **Persistent User Sessions**: User authentication persists between sessions
 
-1. Make sure you have Node.js and npm installed.
-2. Navigate to the frontend directory.
-3. Install dependencies:
+## 🚀 Installation
+
+### Prerequisites
+- Node.js (v14.0.0 or later)
+- npm (v6.0.0 or later)
+
+### Setup Instructions
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/zodiacx.git
+   cd zodiacx
    ```
+
+2. **Install dependencies**
+   ```bash
    npm install
    ```
-4. Create the Login.jsx and Signup.jsx files in the src/pages directory.
-5. Create the Auth.css file in the src/styles directory.
-6. Update the Header.jsx component with the authentication handling.
-7. Update the Router.jsx to include the login and signup routes.
-8. Start the frontend development server:
-   ```
+
+3. **Start the development server**
+   ```bash
    npm run dev
    ```
 
-## Backend Setup
+4. **Open your browser**
+   Navigate to http://localhost:5173 (or the port shown in your terminal)
 
-1. Make sure you have Python installed (3.7+ recommended).
-2. Navigate to the backend directory.
-3. Create a virtual environment:
-   ```
-   python -m venv venv
-   ```
-4. Activate the virtual environment:
-   - On Windows: `venv\Scripts\activate`
-   - On macOS/Linux: `source venv/bin/activate`
-5. Install dependencies:
-   ```
-   pip install -r requirements.txt
-   ```
-6. Update the email configuration in app.py:
-   ```python
-   app.config['MAIL_USERNAME'] = 'your_email@gmail.com'  # Replace with your email
-   app.config['MAIL_PASSWORD'] = 'your_email_password'   # Replace with your email password or app password
-   app.config['MAIL_DEFAULT_SENDER'] = 'your_email@gmail.com'
-   ```
-   
-   Note: If you're using Gmail, you'll need to create an App Password instead of using your regular password. Follow these steps:
-   1. Enable 2-Step Verification on your Google Account
-   2. Create an App Password (Settings > Security > App Passwords)
-   
-7. Start the Flask server:
-   ```
-   python app.py
-   ```
+## 📂 Project Structure
 
-## Authentication Flow
+```
+zodiacx/
+├── src/
+│   ├── components/            # Reusable UI components
+│   │   ├── Header.jsx         # Navigation header with auth
+│   │   └── Footer.jsx         # Page footer
+│   ├── pages/                 # Page components
+│   │   ├── Home.jsx           # Landing page
+│   │   ├── Login.jsx          # Authentication page
+│   │   ├── Signup.jsx         # Registration page
+│   │   ├── ZodiacQuiz.jsx     # Quiz to find zodiac sign
+│   │   └── Compatibility.jsx  # Compatibility checker
+│   ├── services/              # Business logic
+│   │   └── localAuthService.js # Authentication service
+│   ├── styles/                # CSS styles
+│   │   ├── global.css         # Global styles
+│   │   ├── Header.css         # Header-specific styles
+│   │   └── Auth.css           # Authentication page styles
+│   ├── App.jsx                # Main app component
+│   ├── Router.jsx             # Application routes
+│   └── main.jsx               # Entry point
+├── public/                    # Static assets
+├── package.json               # Project dependencies
+└── vite.config.js             # Vite configuration
+```
 
-1. **User Registration (Signup)**:
-   - User enters name, email, and password
-   - Backend sends OTP to the user's email
-   - User enters the OTP to verify their email
-   - Upon successful verification, a JWT token is generated and returned
+## 🔐 Authentication System
 
-2. **User Login**:
-   - User enters email and requests OTP
-   - Backend sends OTP to the user's email
-   - User enters password and OTP
-   - Upon successful verification, a JWT token is generated and returned
+ZodiacX uses a localStorage-based authentication system that allows for:
 
-3. **Authentication State**:
-   - The JWT token is stored in localStorage
-   - The Header component checks for the token and verifies it with the backend
-   - If the token is valid, the user's profile is displayed
-   - If the token is invalid, the user is logged out
+- **User Registration**: Create a new account with name, email, and password
+- **User Login**: Authenticate with email and password
+- **Profile Display**: Shows user info in the header when logged in
+- **Logout**: Available by clicking on the user's profile name
 
-## Security Features
+### Default Test User
+- **Email**: test@example.com
+- **Password**: password123
 
-- Password hashing using Werkzeug's generate_password_hash
-- JWT for authentication with expiration time
-- Email verification using OTP (6-digit code)
-- OTP expiration (10 minutes)
+## 🔮 Pages and Features
 
-## Production Considerations
+### Home Page
+The landing page introduces users to ZodiacX with information about the 12 zodiac signs, categorized by their elements (Fire, Earth, Air, Water).
 
-For a production environment, consider the following:
+### Know Your Zodiac Quiz
+An interactive quiz that helps users discover their zodiac sign based on their personality traits and preferences.
 
-1. Use a proper database (PostgreSQL, MySQL, MongoDB) instead of in-memory storage
-2. Set up proper environment variables for sensitive data (SECRET_KEY, email credentials)
-3. Add rate limiting to prevent brute force attacks
-4. Implement HTTPS
-5. Add more robust error handling and logging
+### Compatibility Checker
+Users can select two zodiac signs to check their astrological compatibility across different aspects like love, friendship, and communication.
+
+### Login/Signup Pages
+Cosmic-themed authentication pages with form validation and error handling.
+
+## 💻 Development
+
+### Adding New Pages
+1. Create a new component in the `src/pages` directory
+2. Add the route in `Router.jsx`
+3. Link to it from the navigation if needed
+
+### Styling Guidelines
+- Follow the cosmic theme with gradients and space-like elements
+- Use variables defined in `global.css` for consistent colors
+- Ensure responsive design for all screen sizes
+
+## 📱 Responsive Design
+
+ZodiacX is fully responsive and works on:
+- Desktop computers
+- Tablets
+- Mobile phones
+
+The UI adapts automatically using media queries to provide the best experience on any device.
+
+## 🛠️ Technologies Used
+
+- **React**: UI library for building the interface
+- **React Router**: For navigation and routing
+- **Vite**: Build tool and development server
+- **CSS**: Custom styling with responsive design
+- **localStorage**: For persisting authentication state
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📜 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🙏 Acknowledgements
+
+- Zodiac sign information and compatibility data from [Astrology.com](https://www.astrology.com)
+- Star background animation inspired by [Starry Night codepen](https://codepen.io/sarazond/pen/LYGbwj)
+- Icons from [Remix Icon](https://remixicon.com/)
+
+---
+
+Created with ❤️ and cosmic energy by Vaaruni
