@@ -2,8 +2,6 @@
 
 ZodiacX is an interactive web application that helps users discover their zodiac sign, explore astrological compatibility, and engage with cosmic content. This React-based application features a beautiful cosmic-themed UI with authentication functionality.
 
-![ZodiacX Screenshot](Screenshot 2025-04-30 at 8.42.53 AM.png)
-
 ## 🌟 Features
 
 - **User Authentication**: Signup and login with profile management
